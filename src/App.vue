@@ -1,16 +1,11 @@
 <template>
   <div>
-    <NavComponent/>
     <router-view />
   </div>
 </template>
 
 <script>
-import NavComponent from './components/NavComponent.vue'
-
-export default {
-    components: { NavComponent }
-}
+export default {};
 </script>
 
 <style lang="scss">
@@ -21,5 +16,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>
