@@ -66,15 +66,25 @@ $colors: (
 ) !default;
 // scss-docs-end colors-map
 
+// CHANGED FOR SASS-Y COLOR THEME COLORS
 // scss-docs-start theme-color-variables
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
-$success:       $green !default;
+$primary:       #731062 !default;
+$secondary:     #A66BBF !default;
+$success:       #2B4075 !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
+$light:         #F2F2F2 !default;
+$dark:          #0D0D0D !default;
+// scss-docs-start theme-color-variables
+// $primary:       $blue !default;
+// $secondary:     $gray-600 !default;
+// $success:       $green !default;
+// $info:          $cyan !default;
+// $warning:       $yellow !default;
+// $danger:        $red !default;
+// $light:         $gray-100 !default;
+// $dark:          $gray-900 !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map

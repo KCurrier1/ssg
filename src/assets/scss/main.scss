@@ -1,5 +1,9 @@
-@import "@/assets/scss/abstract/variables";
-
 @import "@/assets/scss/base/base";
 
+// Most of my global styling utilizes bootstrap, as all my component specific styling can be found
+// in the <style> tag of the vue files
 @import "./vendor/BS5/bootstrap.scss";
+// Note: I changed the default bootstrap theme colors, if you'd like to view the changes, 
+// see vendor/BS5/_variables.scss lines: 71-78
+
+// This file contains all global scss files where a single css file can be rendered client-side
