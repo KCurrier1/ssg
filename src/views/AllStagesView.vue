@@ -6,15 +6,6 @@
       <!-- Dog Card with route to difficulty -->
       <!-- All Cards have properties for Title, Description, Button Title, and the route path
             Along with a slot for any additional components like images -->
-      <card-component
-        title="Dog"
-        description="A Doggo"
-        buttonTitle="Select Stage"
-        path="/difficulty"
-      >
-      <!-- Dog image -->
-        <img src="@/assets/Dog.png" />
-      </card-component>
       <!-- Cat Card with route to difficulty -->
       <card-component
         title="Cat"
@@ -22,8 +13,8 @@
         buttonTitle="Select Stage"
         path="/difficulty"
       >
-      <!-- Cat component -->
-        <cat-component/>
+        <!-- Cat component -->
+        <cat-component />
       </card-component>
       <!-- Bear Card with route to difficulty -->
       <card-component
@@ -32,7 +23,17 @@
         buttonTitle="Select Stage"
         path="/difficulty"
       >
-        <img src="@/assets/Bear.png" />
+        <!-- Bear component -->
+        <bear-component />
+      </card-component>
+      <card-component
+        title="Dog"
+        description="A Doggo"
+        buttonTitle="Select Stage"
+        path="/difficulty"
+      >
+        <!-- Dog component -->
+        <dog-component/>
       </card-component>
     </div>
   </common-layout>
@@ -42,10 +43,12 @@
 // Import the components and layout
 import CardComponent from "../components/CardComponent.vue";
 import CommonLayout from "../layouts/CommonLayout.vue";
-import CatComponent from '@/components/CatComponent.vue';
+import CatComponent from "@/components/CatComponent.vue";
+import BearComponent from "@/components/BearComponent.vue";
+import DogComponent from '@/components/DogComponent.vue';
 // Export them to be called with route
 export default {
-  components: { CommonLayout, CardComponent, CatComponent },
+  components: { CommonLayout, CardComponent, CatComponent, BearComponent, DogComponent },
 };
 </script>
 

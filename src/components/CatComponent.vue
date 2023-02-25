@@ -22,7 +22,7 @@
 	position: relative;
 	margin-top: -50px;
 	margin-left: -50px;
-	top: 25%;
+	top: 30%;
 	left: 50%;
 
     .cat-face{
@@ -105,7 +105,7 @@
                 border-left: none;
                 border-right: none;
                 width: 25px;
-                height: 3px;
+                height: 5px;
                 left: 35px;
                 transform: rotate(-10deg);
             }
@@ -115,7 +115,7 @@
                 border-left: none;
                 border-right: none;
                 width: 25px;
-                height: 3px;
+                height: 5px;
                 right: 35px;
                 transform: rotate(10deg);
             }
