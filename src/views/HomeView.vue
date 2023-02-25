@@ -38,8 +38,8 @@ have scoped styling, as the styling is only needed on this page/section -->
 <style scoped lang="scss">
 // Set the body logo size
 .logo {
-  height: 450px;
-  width: 650px;
+  height: 275px;
+  width: 375px;
 }
 
 // Title Font Styling

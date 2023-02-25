@@ -1,0 +1,159 @@
+{
+    "stages": [
+        {
+            "id": "cat",
+            "levels": [
+                {
+                "id": 8,
+                "title": "Functions",
+                "description": "Learn how to create and use functions in Sass.",
+                "directions": [
+                  {
+                    "id": 1,
+                    "text": "In this level, you will learn how to create a function in Sass that will allow you to calculate the width of an element based on its parent container. First, let's create a variable called `$container-width` and set its value to `800px`."
+                  },
+                  {
+                    "id": 2,
+                    "text": "Next, let's create a function called `calc-width` that takes two arguments: `$element-width` and `$padding`. The function should return the calculated width of the element by subtracting the total padding from the container width. Remember to use parentheses to group the calculation."
+                  },
+                  {
+                    "id": 3,
+                    "text": "Now, let's use the `calc-width` function to set the width of the `#content` element to `calc-width(500px, 40px)`. This should set the width of the element to `460px` (800px - 40px padding on each side - 500px element width)."
+                  }
+                ],
+                "codeBlocks": [
+                  {
+                    "id": 1,
+                    "text": "$container-width: 800px;\n\n@function calc-width($element-width, $padding) {\n  @return ($container-width - (2 * $padding)) - $element-width;\n}\n\n#content {\n  width: calc-width(500px, 40px);\n}"
+                  }
+                ]
+              },
+              {
+                "id": 9,
+                "title": "Mixins",
+                "description": "Learn how to use mixins in Sass to create reusable styles.",
+                "directions": [
+                  {
+                    "id": 1,
+                    "text": "In this level, you will learn how to use mixins to create reusable styles. First, let's create a mixin called `button` that will set the background color, border radius, and padding of a button element."
+                  },
+                  {
+                    "id": 2,
+                    "text": "Now, let's use the `button` mixin to create two different button styles: `primary-button` and `secondary-button`. The primary button should have a blue background color and a 10px border radius, while the secondary button should have a gray background color and a 5px border radius."
+                  }
+                ],
+                "codeBlocks": [
+                  {
+                    "id": 1,
+                    "text": "@mixin button($background-color, $border-radius, $padding) {\n  background-color: $background-color;\n  border-radius: $border-radius;\n  padding: $padding;\n}\n\n.primary-button {\n  @include button(blue, 10px, 10px);\n}\n\n.secondary-button {\n  @include button(gray, 5px, 5px);\n}"
+                  }
+                ]
+              }
+            ]
+        },
+        {
+            "id": "dog",
+            "levels": [
+                {
+                "id": 8,
+                "title": "Functions",
+                "description": "Learn how to create and use functions in Sass.",
+                "directions": [
+                  {
+                    "id": 1,
+                    "text": "In this level, you will learn how to create a function in Sass that will allow you to calculate the width of an element based on its parent container. First, let's create a variable called `$container-width` and set its value to `800px`."
+                  },
+                  {
+                    "id": 2,
+                    "text": "Next, let's create a function called `calc-width` that takes two arguments: `$element-width` and `$padding`. The function should return the calculated width of the element by subtracting the total padding from the container width. Remember to use parentheses to group the calculation."
+                  },
+                  {
+                    "id": 3,
+                    "text": "Now, let's use the `calc-width` function to set the width of the `#content` element to `calc-width(500px, 40px)`. This should set the width of the element to `460px` (800px - 40px padding on each side - 500px element width)."
+                  }
+                ],
+                "codeBlocks": [
+                  {
+                    "id": 1,
+                    "text": "$container-width: 800px;\n\n@function calc-width($element-width, $padding) {\n  @return ($container-width - (2 * $padding)) - $element-width;\n}\n\n#content {\n  width: calc-width(500px, 40px);\n}"
+                  }
+                ]
+              },
+              {
+                "id": 9,
+                "title": "Mixins",
+                "description": "Learn how to use mixins in Sass to create reusable styles.",
+                "directions": [
+                  {
+                    "id": 1,
+                    "text": "In this level, you will learn how to use mixins to create reusable styles. First, let's create a mixin called `button` that will set the background color, border radius, and padding of a button element."
+                  },
+                  {
+                    "id": 2,
+                    "text": "Now, let's use the `button` mixin to create two different button styles: `primary-button` and `secondary-button`. The primary button should have a blue background color and a 10px border radius, while the secondary button should have a gray background color and a 5px border radius."
+                  }
+                ],
+                "codeBlocks": [
+                  {
+                    "id": 1,
+                    "text": "@mixin button($background-color, $border-radius, $padding) {\n  background-color: $background-color;\n  border-radius: $border-radius;\n  padding: $padding;\n}\n\n.primary-button {\n  @include button(blue, 10px, 10px);\n}\n\n.secondary-button {\n  @include button(gray, 5px, 5px);\n}"
+                  }
+                ]
+              }
+            ]
+        },
+        {
+            "id": "bear",
+            "levels": [
+                {
+                "id": 8,
+                "title": "Functions",
+                "description": "Learn how to create and use functions in Sass.",
+                "directions": [
+                  {
+                    "id": 1,
+                    "text": "In this level, you will learn how to create a function in Sass that will allow you to calculate the width of an element based on its parent container. First, let's create a variable called `$container-width` and set its value to `800px`."
+                  },
+                  {
+                    "id": 2,
+                    "text": "Next, let's create a function called `calc-width` that takes two arguments: `$element-width` and `$padding`. The function should return the calculated width of the element by subtracting the total padding from the container width. Remember to use parentheses to group the calculation."
+                  },
+                  {
+                    "id": 3,
+                    "text": "Now, let's use the `calc-width` function to set the width of the `#content` element to `calc-width(500px, 40px)`. This should set the width of the element to `460px` (800px - 40px padding on each side - 500px element width)."
+                  }
+                ],
+                "codeBlocks": [
+                  {
+                    "id": 1,
+                    "text": "$container-width: 800px;\n\n@function calc-width($element-width, $padding) {\n  @return ($container-width - (2 * $padding)) - $element-width;\n}\n\n#content {\n  width: calc-width(500px, 40px);\n}"
+                  }
+                ]
+              },
+              {
+                "id": 9,
+                "title": "Mixins",
+                "description": "Learn how to use mixins in Sass to create reusable styles.",
+                "directions": [
+                  {
+                    "id": 1,
+                    "text": "In this level, you will learn how to use mixins to create reusable styles. First, let's create a mixin called `button` that will set the background color, border radius, and padding of a button element."
+                  },
+                  {
+                    "id": 2,
+                    "text": "Now, let's use the `button` mixin to create two different button styles: `primary-button` and `secondary-button`. The primary button should have a blue background color and a 10px border radius, while the secondary button should have a gray background color and a 5px border radius."
+                  }
+                ],
+                "codeBlocks": [
+                  {
+                    "id": 1,
+                    "text": "@mixin button($background-color, $border-radius, $padding) {\n  background-color: $background-color;\n  border-radius: $border-radius;\n  padding: $padding;\n}\n\n.primary-button {\n  @include button(blue, 10px, 10px);\n}\n\n.secondary-button {\n  @include button(gray, 5px, 5px);\n}"
+                  }
+                ]
+              }
+            ]
+        }
+    ]
+}    
+  
+  

@@ -22,8 +22,8 @@
         buttonTitle="Select Stage"
         path="/difficulty"
       >
-      <!-- Cat image -->
-        <img src="@/assets/Cat.png" />
+      <!-- Cat component -->
+        <cat-component/>
       </card-component>
       <!-- Bear Card with route to difficulty -->
       <card-component
@@ -42,9 +42,10 @@
 // Import the components and layout
 import CardComponent from "../components/CardComponent.vue";
 import CommonLayout from "../layouts/CommonLayout.vue";
+import CatComponent from '@/components/CatComponent.vue';
 // Export them to be called with route
 export default {
-  components: { CommonLayout, CardComponent },
+  components: { CommonLayout, CardComponent, CatComponent },
 };
 </script>
 
