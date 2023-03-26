@@ -14,14 +14,17 @@
 
 
 <style lang="scss" scoped>
-.drawing-holder{
-	width: 500px;
-	height: 200px;
-	position: relative;
-	margin-top: -50px;
-	margin-left: -50px;
-	top: 5%;
-	right: 45%;
+.drawing-holder {
+  width: 200px;
+  height: 150px;
+  position: relative;
+  top: -15%;
+  left: -93%;
+  z-index: 1;
+  @media (max-width: 775px) {
+    top: -10% !important;
+    left: -288% !important;
+  }
 }
 // all animals have this default setup for body, face and features elements
 // saves setting it up each time

@@ -32,7 +32,7 @@ export default {
 // Sets the styling for the size and background of the nav component
 .nav {
   width: 100%;
-  height: 100px;
+  height: 60px;
   background-color: #731062;
   // Sets the logo container size and position with responsitivity
   .logoContainer {
@@ -41,9 +41,9 @@ export default {
     vertical-align: middle;
     // Sets the logo sizing within the container
     .logo {
-      height: 75px;
-      width: 100px;
-      margin: 10px;
+      height: 45px;
+      width: 60px;
+      margin: 8px;
     }
   }
   // Sets the styling for the parent of the navigation links for spacing and positions
@@ -51,19 +51,19 @@ export default {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
-    padding: 10px 20px;
+    padding: 5px 10px;
     width: 90%;
     // adds padding inside the container of the links for readability
     nav {
-      padding: 20px;
+      padding: 10px;
       // Styling the links to look like buttons
       a {
         border-radius: 10px;
         font-weight: bold;
         color: #f2f2f2;
         text-decoration: none;
-        padding: 15px;
-        font-size: 24px;
+        padding: 5px 15px;
+        font-size: 18px;
         &.router-link-exact-active {
           color: #a66bbf;
         }

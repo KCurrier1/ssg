@@ -1,22 +1,11 @@
 <template>
-  <div class="drawing-holder">
     <div class="dog body bodySlant earsBasic">
       <div class="face"></div>
       <div class="features"></div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
-.drawing-holder{
-	width: 500px;
-	height: 200px;
-	position: relative;
-	margin-top: -50px;
-	margin-left: -50px;
-	top: 5%;
-	right: 15%;
-}
 
 // all animals have this default setup for body, face and features elements
 // saves setting it up each time

@@ -11,7 +11,7 @@
         title="Cat"
         description="A Kitty Cat"
         buttonTitle="Select Stage"
-        path="/difficulty"
+        path="/cat"
       >
         <!-- Cat component -->
         <cat-component />
@@ -21,7 +21,7 @@
         title="Bear"
         description="A Brown Bear"
         buttonTitle="Select Stage"
-        path="/difficulty"
+        path="/bear"
       >
         <!-- Bear component -->
         <bear-component />
@@ -30,10 +30,10 @@
         title="Dog"
         description="A Doggo"
         buttonTitle="Select Stage"
-        path="/difficulty"
+        path="/dog"
       >
         <!-- Dog component -->
-        <dog-component/>
+        <div class="dog-drawing-holder"><dog-component/></div>
       </card-component>
     </div>
   </common-layout>
@@ -64,10 +64,18 @@ h1 {
   flex-direction: row;
   margin: 50px;
   gap: 20px;
-  // Sets the dimensions of all card images
-  img {
-    height: 150px;
-    width: 150px;
+}
+
+.dog-drawing-holder{
+  width: 200px;
+  height: 150px;
+  position: relative;
+  top: -15%;
+  left: -50%;
+  z-index: 1;
+  @media (max-width: 775px) {
+    top: -10% !important;
+    left: -190% !important;
   }
 }
 </style>

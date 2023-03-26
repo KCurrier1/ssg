@@ -2,8 +2,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AllStagesViewVue from '@/views/AllStagesView.vue'
-import DifficultySelectVue from '@/views/DifficultySelect.vue'
-import GameStageVue from '@/views/GameStage.vue'
+import CatStageViewVue from '@/views/CatStageView.vue'
+import BearStageViewVue from '@/views/BearStageView.vue'
+import DogStageViewVue from '@/views/DogStageView.vue'
 
 const routes = [
   // landing page
@@ -20,17 +21,23 @@ const routes = [
     name: 'allstages',
     component: AllStagesViewVue
   },
-  // difficulty select
+  // cat game stage
   {
-    path: '/difficulty',
-    name: 'difficulty',
-    component: DifficultySelectVue
+    path: '/cat',
+    name: 'cat',
+    component: CatStageViewVue
   },
-  // game stage
+  // bear game stage
   {
-    path: '/game',
-    name: 'game',
-    component: GameStageVue
+    path: '/bear',
+    name: 'bear',
+    component: BearStageViewVue
+  },
+  // dog game stage
+  {
+    path: '/dog',
+    name: 'dog',
+    component: DogStageViewVue
   }
 ]
 
