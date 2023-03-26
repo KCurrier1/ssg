@@ -1,3 +1,8 @@
+// Please ignore, this was my first attempt at getting drag and drop working
+//this attempt is not functional
+//see DogStageView.vue
+//Leaving this here for now for my own future reference, 
+//Will be replaced in final release
 <template>
   <common-layout>
     <h1>SASS-y Cat</h1>

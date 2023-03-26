@@ -1,3 +1,5 @@
+// No longer used as the other difficulties were moved out of scope
+// May be used in the future after class ends
 <template>
   <common-layout>
     <!-- Title -->
