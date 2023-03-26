@@ -1,7 +1,13 @@
 <template>
+  <!-- Layout for nav -->
   <common-layout>
+    <!-- Displays level information while the game is not over -->
     <div class="main-container" v-if="!gameCompleted">
+      <!-- Only attempts to render level info after game is started
+      and the first level is populated -->
       <div class="game" v-if="level > 0">
+        <!-- Contains level title, counter, and previous button after
+        the user completes more than 1 level -->
         <div class="level-info">
           <h1 class="level-title">{{ currentLevel.title }}</h1>
           <h2 class="level-counter">Level {{ level }} of {{ totalLevels }}</h2>
@@ -17,20 +23,25 @@
             <img class="previous" src="@/assets/arrow-left.png" />
           </button>
         </div>
+        <!-- Renders level instructions -->
         <div class="instructions">{{ currentLevel.instructions }}</div>
         <div class="code">
           <div class="code-lines">
+            <!-- Renders all lines of code saved in the currentLevel data -->
             <span
               class="line"
               v-for="lines in currentLevel.code"
               :key="lines.line"
             >
               <h5>
+                <!-- <pre> allows the escape characters to activate in the strings -->
                 <pre>{{ lines.content }}</pre>
               </h5>
             </span>
           </div>
           <div class="drop-boxes">
+            <!--Renders an AnswerBoxComponent for every answer 
+            Triggers an onDrop function when an answer is dropped into the box -->
             <answer-box
               v-for="(box, index) in currentLevel.dropBoxes"
               :key="index"
@@ -41,6 +52,7 @@
             />
           </div>
         </div>
+        <!-- Renders the answer list for the current level -->
         <div class="answers">
           <div
             v-for="(answer, index) in currentLevel.answers"
@@ -54,9 +66,12 @@
           </div>
         </div>
       </div>
+      <!-- Holds the dog component - more tbd -->
       <div class="right-container" v-if="level > 0">
         <div class="dog-drawing-holder"><dog-component /></div>
       </div>
+      <!-- Shows the level completed screen when all answers are placed correctly
+      Also acts as level navigation -->
       <div class="completed" v-if="levelCompleted">
         <h1>Congratulations! You completed the level! Try the next one?</h1>
         <button
@@ -71,12 +86,15 @@
         </button>
       </div>
     </div>
+    <!-- Win screen renders once all levels in the stage are completed correctly
+    links back to stage selection screen -->
     <div class="completed" v-if="gameCompleted">
       <h1>Congratulations! You completed the game. Try a new stage?</h1>
       <router-link to="/allstages" class="btn btn-primary"
         >Stage Select</router-link
       >
     </div>
+    <!-- only rendered before the game starts -->
     <button
       v-if="level === 0"
       @click="
@@ -98,12 +116,12 @@ export default {
   components: { AnswerBox, CommonLayout, DogComponent },
   data() {
     return {
-      level: 0,
-      totalLevels: 2,
-      currentLevel: {},
-      dragAnswer: null,
-      levelCompleted: false,
-      gameCompleted: false,
+      level: 0, //counter for current level
+      totalLevels: 2, //total levels for this stage
+      currentLevel: {}, //updates with the data for current level
+      dragAnswer: null, //updates when user begins dragging an answer
+      levelCompleted: false, //updates via the checkCompletion method
+      gameCompleted: false, //updates via the checkCompletion method
       dogLevel1: {
         title: "Variables",
         instructions: `Variables are a big part of Sass's reusability and organization in your stylesheets. You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol to make something a variable. Drag the correct variable names and values below to the correct spots to create the color foundations for your dog!`,
@@ -163,12 +181,14 @@ export default {
       },
     };
   },
+  // This makes vue re-render the level everytime the counter changes
   watch: {
     level: function () {
       this.setCurrentLevel();
     },
   },
   methods: {
+    // sets the current level data based on the level counter
     setCurrentLevel() {
       if (this.level === 1) {
         this.currentLevel = this.dogLevel1;
@@ -176,37 +196,53 @@ export default {
         this.currentLevel = this.dogLevel2;
       }
     },
+    //updates the dragAnswer with the answer data currently being moved
     onDragStart(answer) {
       this.dragAnswer = answer;
     },
+    // Handles the answer boxes
     onDrop(index) {
+      // sets the box the answer was dropped in
       const box = this.currentLevel.dropBoxes[index];
+      // if the box already had an answer in it
       if (box.answer !== null) {
+        // temp save the answer that was in it
         const prevAnswer = box.answer;
+        // find the previous answer in the answer list
         const prevAnswerIndex = this.currentLevel.answers.findIndex(
           (a) => a.text === prevAnswer.text
         );
+        // mark it as unused
         prevAnswer.used = false;
+        // update the answer list
         if (prevAnswerIndex >= 0) {
           this.currentLevel.answers[prevAnswerIndex] = prevAnswer;
         } else {
           this.currentLevel.answers.push(prevAnswer);
         }
       }
+      // place the dropped answer into the box
       box.answer = this.dragAnswer;
+      // mark the answer as used
       this.dragAnswer.used = true;
+      // clear the dragAnswer variable in prep for the next one
       this.dragAnswer = null;
+      // check if level is complete
       this.checkCompletion();
     },
     checkCompletion() {
+      // checks all answer boxes to make sure they are holding the correct answer
       const levelCompleted = this.currentLevel.dropBoxes.every(
         (box, index) =>
           box.answer &&
           box.answer.text === this.currentLevel.answers[index].text
       );
+      // sets the level to completed or leaves incompleted based on the previous check
       this.levelCompleted = levelCompleted;
+      // if the level is complete, check if it was the last level
       if (levelCompleted) {
         if (this.level == this.totalLevels) {
+          // if it was the last level, end the game
           this.gameCompleted = true;
         }
       }
@@ -216,6 +252,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// holds all level elements
 .main-container {
   display: flex;
   flex-direction: row;
@@ -223,6 +260,7 @@ export default {
   gap: 50px;
   padding: 10px 0 0;
 }
+// holds dog component
 .right-container {
   display: flex;
   flex-direction: column;
@@ -242,6 +280,7 @@ export default {
     }
   }
 }
+// holds all game elements
 .game {
   display: flex;
   flex-direction: column;
@@ -251,11 +290,17 @@ export default {
   margin-left: 50px;
   flex: 0.6;
 }
+// holds title, counter, and previous level button
 .level-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  .previous {
+    width: 15px;
+    height: 15px;
+  }
 }
+// holds the code lines and answer boxes
 .code {
   display: flex;
   flex-direction: row;
@@ -286,6 +331,7 @@ export default {
       margin-bottom: 0;
     }
   }
+  // answer boxes list
   .drop-boxes {
     display: flex;
     padding: 10px;
@@ -295,6 +341,7 @@ export default {
     gap: 20px;
   }
 }
+// holds answer list
 .answers {
   display: flex;
   flex-direction: row;
@@ -306,14 +353,15 @@ export default {
     padding: 10px;
     border-radius: 12px;
   }
+  // set after answer is used
   .answer-disabled {
     background-color: #d4d4d4;
   }
 }
-.previous {
-  width: 15px;
-  height: 15px;
-}
+
+// This is the overlay for when the level and/or game is completed
+// It covers the entire page where no other elements are clickable to ensure 
+// the users follow the expected navigation
 .completed {
   position: absolute;
   top: 0;

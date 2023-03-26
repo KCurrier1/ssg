@@ -1,3 +1,5 @@
+// Default filler info
+// See DogStageView.vue for current functionality
 <template>
   <div>
     Bear Stage
