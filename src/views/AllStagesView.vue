@@ -9,31 +9,28 @@
       <!-- Cat Card with route to difficulty -->
       <card-component
         title="Cat"
-        description="A Kitty Cat"
         buttonTitle="Select Stage"
         path="/cat"
       >
         <!-- Cat component -->
-        <cat-component />
+        <img src="@/assets/Cat.png" alt="A Kitty Cat">
       </card-component>
       <!-- Bear Card with route to difficulty -->
       <card-component
         title="Bear"
-        description="A Brown Bear"
         buttonTitle="Select Stage"
         path="/bear"
       >
         <!-- Bear component -->
-        <bear-component />
+        <img src="@/assets/Bear.png" alt="A Brown Bear">
       </card-component>
       <card-component
         title="Dog"
-        description="A Doggo"
         buttonTitle="Select Stage"
         path="/dog"
       >
         <!-- Dog component -->
-        <div class="dog-drawing-holder"><dog-component/></div>
+        <img src="@/assets/Dog.png" alt="A Doggo">
       </card-component>
     </div>
   </common-layout>
@@ -43,12 +40,9 @@
 // Import the components and layout
 import CardComponent from "../components/CardComponent.vue";
 import CommonLayout from "../layouts/CommonLayout.vue";
-import CatComponent from "@/components/CatComponent.vue";
-import BearComponent from "@/components/BearComponent.vue";
-import DogComponent from '@/components/DogComponent.vue';
 // Export them to be called with route
 export default {
-  components: { CommonLayout, CardComponent, CatComponent, BearComponent, DogComponent },
+  components: { CommonLayout, CardComponent, },
 };
 </script>
 
@@ -66,16 +60,10 @@ h1 {
   gap: 20px;
 }
 
-.dog-drawing-holder{
-  width: 200px;
-  height: 150px;
-  position: relative;
-  top: -15%;
-  left: -50%;
-  z-index: 1;
-  @media (max-width: 775px) {
-    top: -10% !important;
-    left: -190% !important;
-  }
+img{
+  width: 150px;
+  border-radius: 12px;
+  margin: 10px;
 }
+
 </style>

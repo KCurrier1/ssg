@@ -8,50 +8,31 @@
       <div class="game" v-if="level > 0">
         <!-- Contains level title, counter, and previous button after
         the user completes more than 1 level -->
-        <div class="level-info">
-          <h1 class="level-title">{{ currentLevel.title }}</h1>
-          <h2 class="level-counter">Level {{ level }} of {{ totalLevels }}</h2>
+        <div class="with-previous">
+          <div class="level-info">
+            <h1 class="level-title" draggable="false">
+              {{ currentLevel.title }}
+            </h1>
+            <h2 class="level-counter" draggable="false">
+              Level {{ level }} of {{ totalLevels }}
+            </h2>
+          </div>
           <button
             v-if="level > 1"
             class="btn btn-secondary"
             @click="
               currentLevel = {};
-              levelCompleted = false;
               level = level - 1;
+              levelCompleted = false;
+              needReset = true;
             "
+            draggable="false"
           >
             <img class="previous" src="@/assets/arrow-left.png" />
           </button>
         </div>
         <!-- Renders level instructions -->
         <div class="instructions">{{ currentLevel.instructions }}</div>
-        <div class="code">
-          <div class="code-lines">
-            <!-- Renders all lines of code saved in the currentLevel data -->
-            <span
-              class="line"
-              v-for="lines in currentLevel.code"
-              :key="lines.line"
-            >
-              <h5>
-                <!-- <pre> allows the escape characters to activate in the strings -->
-                <pre>{{ lines.content }}</pre>
-              </h5>
-            </span>
-          </div>
-          <div class="drop-boxes">
-            <!--Renders an AnswerBoxComponent for every answer 
-            Triggers an onDrop function when an answer is dropped into the box -->
-            <answer-box
-              v-for="(box, index) in currentLevel.dropBoxes"
-              :key="index"
-              :answer="box.answer"
-              :index="index"
-              :answers="answers"
-              @drop="onDrop"
-            />
-          </div>
-        </div>
         <!-- Renders the answer list for the current level -->
         <div class="answers">
           <div
@@ -65,10 +46,43 @@
             {{ answer.text }}
           </div>
         </div>
+        <div class="code">
+          <div class="code-lines">
+            <!-- Renders all lines of code saved in the currentLevel data -->
+            <span
+              class="line"
+              v-for="lines in currentLevel.code"
+              :key="lines.line"
+            >
+              <h5 draggable="false">
+                <!-- <pre> allows the escape characters to activate in the strings -->
+                <pre draggable="false">{{ lines.content }}</pre>
+              </h5>
+            </span>
+          </div>
+          <div class="drop-boxes">
+            <!--Renders an AnswerBoxComponent for every answer 
+            Triggers an onDrop function when an answer is dropped into the box -->
+            <answer-box
+              v-for="(box, index) in currentLevel.dropBoxes"
+              :key="index"
+              :answer="box.answer"
+              :index="index"
+              :answers="answers"
+              :class="{ wrong: needReset }"
+              @dragstart="onDragStart(answer)"
+              @drop="onDrop"
+              draggable="box.used"
+            />
+          </div>
+        </div>
       </div>
-      <!-- Holds the dog component - more tbd -->
+      <!-- Holds the dog component -->
       <div class="right-container" v-if="level > 0">
-        <div class="dog-drawing-holder"><dog-component /></div>
+        <button v-if="needReset" @click="reset()" class="btn btn-danger">
+          Try Again?
+        </button>
+        <img src="@/assets/Dog.png" alt="Dog" draggable="false" />
       </div>
       <!-- Shows the level completed screen when all answers are placed correctly
       Also acts as level navigation -->
@@ -78,9 +92,10 @@
           v-if="level < totalLevels"
           @click="
             currentLevel = {};
-            levelCompleted = false;
             level = level + 1;
+            levelCompleted = false;
           "
+          class="btn btn-secondary" style="color: white"
         >
           Next Level
         </button>
@@ -95,49 +110,53 @@
       >
     </div>
     <!-- only rendered before the game starts -->
-    <button
-      v-if="level === 0"
-      @click="
-        currentLevel = {};
-        level = level + 1;
-      "
-    >
-      Start Game
-    </button>
+    <div class="start" v-if="level === 0">
+      <img src="@/assets/Dog.png" alt="Dog" draggable="false" />
+      <h3>Tip: Place an answer in the wrong spot? Try dragging a different one over it to replace it! Or keep going and retry the level! :)</h3>
+      <button
+        @click="
+          currentLevel = {};
+          level = level + 1;
+        "
+        class="btn btn-primary"
+      >
+        Start Game
+      </button>
+    </div>
   </common-layout>
 </template>
 
 <script>
 import AnswerBox from "@/components/AnswerBoxComponent.vue";
 import CommonLayout from "@/layouts/CommonLayout.vue";
-import DogComponent from "@/components/DogComponent.vue";
 
 export default {
-  components: { AnswerBox, CommonLayout, DogComponent },
+  components: { AnswerBox, CommonLayout },
   data() {
     return {
       level: 0, //counter for current level
-      totalLevels: 2, //total levels for this stage
+      totalLevels: 4, //total levels for this stage
       currentLevel: {}, //updates with the data for current level
       dragAnswer: null, //updates when user begins dragging an answer
+      needReset: false,
       levelCompleted: false, //updates via the checkCompletion method
       gameCompleted: false, //updates via the checkCompletion method
       dogLevel1: {
         title: "Variables",
         instructions: `Variables are a big part of Sass's reusability and organization in your stylesheets. You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol to make something a variable. Drag the correct variable names and values below to the correct spots to create the color foundations for your dog!`,
         code: [
-          { content: "$primary-color: ____________ (#1)" },
-          { content: "$accent-color: ____________ (#2)" },
-          { content: "$radius: _______ (#3)" },
-          { content: ".dog-face\n\n\tbackground-color: ________________ (#4)" },
+          { content: "$primary-color: ____________ (#1)\n\nsecondary-color: #D6D6D6\n\n$accent-color: ____________ (#2)\n\n$radius: _______ (#3)" },
+          {
+            content: ".dog-face\n\n\tbackground-color: ________________ (#4)",
+          },
           {
             content:
-              "\t.dog-eyes .left,\n\t.dog-eyes .right\n\n\t\tbackground-color: _______________ (#5)",
+              "\t.dog-eyes .left, .dog-eyes .right\n\n\t\tbackground-color: _______________ (#5)",
           },
           { content: "\t\tborder-radius: ____________ (#6)" },
         ],
         answers: [
-          { text: "#FFD391", used: false },
+          { text: "#A3701D", used: false },
           { text: "#000000", used: false },
           { text: "50%", used: false },
           { text: "$primary-color", used: false },
@@ -155,8 +174,7 @@ export default {
       },
       dogLevel2: {
         title: "Selectors",
-        instructions: `Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice. With that knowledge, drag the selectors below to their correct nested spots to style the right element!\n
-            // Note: nested selectors like this are only needed if each parent has specific styling, like in this case, where the dog face is the parent element, and it's children make up the face, all with their own styling element, not shown in this code snippet.`,
+        instructions: `Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice. With that knowledge, drag the selectors below to their correct nested spots to style the right element!\n`,
         code: [
           { content: "____________ (#1)" },
           { content: "\t____________ (#2)" },
@@ -179,6 +197,65 @@ export default {
           { answer: null },
         ],
       },
+      dogLevel3: {
+        title: "Mixins",
+        instructions: `Mixins are a powerful way to reuse CSS rules. They allow you to define a set of CSS rules once, and then reuse them multiple times throughout your code. Drag the correct mixin names and values below to the correct spots to create the dog's ears.`,
+        code: [
+          {
+            content:
+              "@mixin dog-ear($color)\n\n\tbackground-color: ____________ (#1)\n\twidth: ____________ (#2)\n\theight: ____________ (#3)\n\tposition: absolute\n\ttop: -50px\n\tleft: 40px",
+          },
+          {
+            content:
+              ".dog-ear-left \n\n\t@include _______________ (#4)($primary-color)",
+          },
+          {
+            content: "___________ (#5)\n\n\t @include dog-ear($primary-color)",
+          },
+        ],
+        answers: [
+          { text: "$color", used: false },
+          { text: "60px", used: false },
+          { text: "100px", used: false },
+          { text: "dog-ear", used: false },
+          { text: ".dog-ear-right", used: false },
+        ],
+        dropBoxes: [
+          { answer: null },
+          { answer: null },
+          { answer: null },
+          { answer: null },
+          { answer: null },
+        ],
+      },
+      dogLevel4: {
+        title: "Inheritance",
+        instructions:
+          "Sass allows you to create reusable styles using `@extend` using inheritance. `@extend` allows you to take all of the styles from one selector and apply them to another. This inheritance allows you to define a base style and then extend it with additional styles. Use `@extend` and inheritance to style the dog's ears.",
+
+        code: [
+          {
+            content:
+              ".base-ears\n\n\tborder-radius: 12px\n\tposition: ____________ (#1)\n\twidth: 60px\n\theight: 100px\n\ttop: -50px\n\tleft: 40px",
+          },
+          {
+            content:
+              ".dog-ear-left\n\n\t____________ (#2) .base-ear\n\theight: 110px",
+          },
+          {
+            content:
+              "____________ (#3)\n\n\t@extend .base-ear\n\ttransform: rotateY(180deg)",
+          },
+        ],
+
+        answers: [
+          { text: "absolute", used: false },
+          { text: "@extend", used: false },
+          { text: ".dog-ear-right", used: false },
+        ],
+
+        dropBoxes: [{ answer: null }, { answer: null }, { answer: null }],
+      },
     };
   },
   // This makes vue re-render the level everytime the counter changes
@@ -194,6 +271,10 @@ export default {
         this.currentLevel = this.dogLevel1;
       } else if (this.level === 2) {
         this.currentLevel = this.dogLevel2;
+      } else if (this.level === 3) {
+        this.currentLevel = this.dogLevel3;
+      } else if (this.level === 4) {
+        this.currentLevel = this.dogLevel4;
       }
     },
     //updates the dragAnswer with the answer data currently being moved
@@ -214,6 +295,7 @@ export default {
         );
         // mark it as unused
         prevAnswer.used = false;
+        box.used = false;
         // update the answer list
         if (prevAnswerIndex >= 0) {
           this.currentLevel.answers[prevAnswerIndex] = prevAnswer;
@@ -225,6 +307,7 @@ export default {
       box.answer = this.dragAnswer;
       // mark the answer as used
       this.dragAnswer.used = true;
+      box.used = true;
       // clear the dragAnswer variable in prep for the next one
       this.dragAnswer = null;
       // check if level is complete
@@ -237,6 +320,13 @@ export default {
           box.answer &&
           box.answer.text === this.currentLevel.answers[index].text
       );
+      if (levelCompleted == false) {
+        if (
+          this.currentLevel.dropBoxes.every((box) => box.answer.text !== null)
+        ) {
+          this.needReset = true;
+        }
+      }
       // sets the level to completed or leaves incompleted based on the previous check
       this.levelCompleted = levelCompleted;
       // if the level is complete, check if it was the last level
@@ -247,38 +337,58 @@ export default {
         }
       }
     },
+    reset() {
+      this.currentLevel.dropBoxes.forEach((box, index) => {
+        box.answer[index] = null;
+        box.answer = null;
+        this.currentLevel.answers[index].used = false;
+      });
+      this.needReset = false;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+//start screen
+.start{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 450px;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
 // holds all level elements
 .main-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 50px;
   padding: 10px 0 0;
+  @media (max-width: 775px) {
+    gap: 20px;
+  }
 }
 // holds dog component
 .right-container {
   display: flex;
-  flex-direction: column;
-  align-content: right;
   flex: 0.4;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-right: 50px;
-  .dog-drawing-holder {
-    width: 20px;
-    height: 15px;
-    position: relative;
-    top: 10%;
-    left: -50%;
-    z-index: 1;
-    @media (max-width: 775px) {
-      top: -10% !important;
-      left: -190% !important;
-    }
+  @media (max-width: 775px) {
+    margin-right: 0px;
   }
+}
+img {
+  width: 400px;
+  border-radius: 25px;
+  margin: 10px;
 }
 // holds all game elements
 .game {
@@ -289,15 +399,26 @@ export default {
   gap: 10px;
   margin-left: 50px;
   flex: 0.6;
+  @media (max-width: 775px) {
+    margin-left: 0px;
+  }
 }
 // holds title, counter, and previous level button
-.level-info {
+.with-previous {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 25px;
   .previous {
     width: 15px;
     height: 15px;
+  }
+  .level-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    flex: 1;
   }
 }
 // holds the code lines and answer boxes
@@ -336,8 +457,9 @@ export default {
     display: flex;
     padding: 10px;
     min-width: 150px;
-    min-height: 48px;
+    min-height: 100%;
     align-self: flex-end;
+    justify-content: space-evenly;
     gap: 20px;
   }
 }
@@ -359,8 +481,36 @@ export default {
   }
 }
 
+.wrong {
+  background-color: #dc3545;
+}
+
+@keyframes tilt-n-move-shaking {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(2px, 2px) rotate(2deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0eg);
+  }
+  75% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.btn-danger {
+  animation: tilt-n-move-shaking 0.5s 100;
+  padding: 10px;
+  min-width: 200px;
+}
+
 // This is the overlay for when the level and/or game is completed
-// It covers the entire page where no other elements are clickable to ensure 
+// It covers the entire page where no other elements are clickable to ensure
 // the users follow the expected navigation
 .completed {
   position: absolute;
@@ -368,7 +518,7 @@ export default {
   left: 0;
   z-index: 999;
   width: 100%;
-  height: 150vh;
+  height: 100vh;
   background-color: rgba($color: #2b4075, $alpha: 0.8);
   padding: 150px 30px;
   color: #f2f2f2;

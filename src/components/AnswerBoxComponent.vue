@@ -53,7 +53,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  min-width: 150px;
+  min-width: 170px;
   min-height: 48px;
   border: 2px solid white;
   border-radius: 12px;

@@ -4,6 +4,7 @@ html{
 
 body{
     margin: 0;
+    background-color: lighten($color: #731062, $amount: 60) !important;
 }
 
 // This was just due to some global styling issues regarding default body margins

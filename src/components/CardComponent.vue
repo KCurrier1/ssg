@@ -27,15 +27,15 @@ export default {
 // adjustments to the card and card body classes to display flexed,
 // with consistent spacing and colors
 .card {
-  border: none;
-  border-radius: 10px;
-  flex: 1;
-  gap: 20px;
+  border: none !important;
+  border-radius: 10px !important;
+  flex: 1 !important;
+  gap: 20px !important;
   .card-body {
-    padding: 15px 10px;
-    color: #F2F2F2;
-    border-radius: 10px;
-    background-color: #a66bbf;
+    padding: 15px 10px !important;
+    color: #F2F2F2 !important;
+    border-radius: 10px !important;
+    background-color: #a66bbf !important;
   }
 }
 </style>
