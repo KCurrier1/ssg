@@ -141,7 +141,8 @@ export default {
       needReset: false,
       levelCompleted: false, //updates via the checkCompletion method
       gameCompleted: false, //updates via the checkCompletion method
-      bearLevel1: {
+      bearLevel1: { // there will be x number of levels, all with the same structure
+        // title, instructions, code, answers, and dropboxes 
         title: "Variables",
         instructions: `Variables are a big part of Sass's reusability and organization in your stylesheets. You can store things like colors, font stacks, or any CSS value you think you'll want to reuse. Sass uses the $ symbol to make something a variable. Drag the correct variable names and values below to the correct spots to create the color foundations for your bear!`,
         code: [
@@ -343,6 +344,7 @@ export default {
         }
       }
     },
+    //resets the answer list and clears answer boxes
     reset() {
       this.currentLevel.dropBoxes.forEach((box, index) => {
         box.answer[index] = null;
@@ -491,6 +493,7 @@ img {
   background-color: #dc3545;
 }
 
+// Animation for try again button
 @keyframes tilt-n-move-shaking {
   0% {
     transform: translate(0, 0) rotate(0deg);

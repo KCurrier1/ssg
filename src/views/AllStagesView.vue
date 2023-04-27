@@ -60,6 +60,7 @@ h1 {
   gap: 20px;
 }
 
+//styles the character images
 img{
   width: 150px;
   border-radius: 12px;
